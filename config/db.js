@@ -1,20 +1,17 @@
-const mysql = require('mysql2');
-
-const dbConfig = {
-  host: 'localhost',
-  user: 'root',
-  password: '', 
-  database: 'uts', 
-};
-
-const connection = mysql.createConnection(dbConfig);
-
-connection.connect((err) => {
-  if (err) {
-    console.error('Error connecting to MySQL:', err);
-    throw err;
-  }
-  console.log('Connected to MySQL');
+let msyql = require('mysql'); 
+let connection = msyql.createConnection({
+host: 'localhost',
+user:'root',
+password: '',
+database:'vlo'
 });
 
-module.exports = connection;
+connection.connect(function (error) {
+if(!!error) {
+console.log(error)
+}else{
+    console.log('Koneksi berhasil');
+
+}
+})
+ module.exports = connection;

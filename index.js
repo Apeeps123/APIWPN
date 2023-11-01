@@ -1,27 +1,27 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const app = express();
-const port = 3000; 
+const port = 3000;
+const cors = require('cors');
+app.use(cors());
+const path = require('path');
+app.use('/static', express.static(path.join(__dirname, 'public/images')));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+const bodyPs = require('body-parser');
+app.use(bodyPs.urlencoded({ extended: false }));
+app.use(bodyPs.json());
 
-const typeRouter = require('./routes/type');
-const factionRouter = require('./routes/faction');
-const memberRouter = require('./routes/factionmb');
-const brandRouter = require('./routes/brand');
-const weaponRouter = require('./routes/weapon');
-const ownerRouter = require('./routes/owner');
-const ownershipRouter = require('./routes/ownership');
+const agentRoutes = require('./routes/agent');
+app.use('/agent', agentRoutes);
 
-app.use('/api/type', typeRouter);
-app.use('/api/faction', factionRouter);
-app.use('/api/factionmb', memberRouter);
-app.use('/api/brand', brandRouter);
-app.use('/api/weapon', weaponRouter);
-app.use('/api/owner', ownerRouter);
-app.use('/api/ownership', ownershipRouter);
+const rolesRoutes = require('./routes/roles');
+app.use('/roles', rolesRoutes);
+
+const weaponRoutes = require('./routes/weapon');
+app.use('/weapon', weaponRoutes);
+
+const skinRoutes = require('./routes/skin');
+app.use('/skin', skinRoutes);
 
 app.listen(port, () => {
-  console.log(`Server running http://localhost:${port}`);
+  console.log(`Server berjalan di http://localhost:${port}`);
 });
